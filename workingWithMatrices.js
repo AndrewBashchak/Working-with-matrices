@@ -125,7 +125,6 @@ function swapExtremeColumns(matrix) {
     const min = Math.min(...rewrite);
     const max = Math.max(...rewrite);
 
-    // 2. Знаходимо перший стовпець, де зустрічається max і min
     let minColumn = -1;
     let maxColumn = -1;
 
@@ -162,3 +161,4 @@ if (swappedMatrix !== null) {
     console.log("Matrix after swapping columns with minimum and maximum:");
     console.table(swappedMatrix);
 };
+
