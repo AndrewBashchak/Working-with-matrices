@@ -149,6 +149,7 @@ function swapColumns(matrix) {
 
     if (minColumn === maxColumn) {
         console.log("Minimum and maximum are in the same column, cannot be moved");
+        console.table(randomMatrix);
         
         return false;
     };
@@ -166,3 +167,4 @@ if (swappedMatrix !== false) {
     console.log("Matrix after swapping columns with minimum and maximum:");
     console.table(swappedMatrix);
 };
+
