@@ -1,4 +1,4 @@
-const rows = 5;
+const rows = 4;
 const columns = 4;
 const min = -10;
 const max = 10;
@@ -20,32 +20,37 @@ function generateRandomTable(rows, columns, min, max) {
     return matrix;
 };
 
-const randomTable = generateRandomTable(rows, columns, min, max);
+const randomMatrix = generateRandomTable(rows, columns, min, max);
 
-console.table(randomTable);
+console.table(randomMatrix);
 
 // 1.
 
-const k = 2;
+const k = 1;
 
-function modifyMatrix(matrix, k) {
-    const column = matrix[0].length;
+function shiftMatrix(matrix, k) {
+    const rows = matrix.length;
+    const cols = matrix[0].length;
 
-    const updatedMatrix = matrix.map(row => {
-        const prefix = new Array(k).fill(0);
-        return [...prefix, ...row];
-    });
+    const shifted = Array.from({ length: rows }, () =>
+        Array.from({ length: cols }, () => 0)
+    );
 
-    const newColumns = column + k;
-    for (let i = 0; i < k; i++) {
-        const newRows = new Array(newColumns).fill(0);
-        updatedMatrix.push(newRows);
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            const newRow = i - k;
+            const newCol = j + k;
+
+            if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols) {
+                shifted[newRow][newCol] = matrix[i][j];
+            };
+        };
     };
 
-    return updatedMatrix;
+    return shifted;
 };
 
-const shiftedMatrix = modifyMatrix(randomTable, k);
+const shiftedMatrix = shiftMatrix(randomMatrix, k);
 
 console.log("1. Shifted matrix right and up:");
 console.table(shiftedMatrix);
@@ -65,7 +70,7 @@ function sumAfterThird(matrix) {
     return sum;
 };
 
-const result = sumAfterThird(randomTable);
+const result = sumAfterThird(randomMatrix);
 console.log("2. Sum of elements after the third element in each row:", result);
 
 // 3.
@@ -78,7 +83,7 @@ function subtractionByAverage(matrix) {
     });
 };
 
-const minusMatrix = subtractionByAverage(randomTable);
+const minusMatrix = subtractionByAverage(randomMatrix);
 
 console.log("3. The matrix which rows have their arithmetic means subtracted:");
 console.table(minusMatrix);
@@ -110,14 +115,14 @@ function removeMaxElements(matrix) {
     return filtered;
 };
 
-const cleanedMatrix = removeMaxElements(randomTable);
+const cleanedMatrix = removeMaxElements(randomMatrix);
 
 console.log("The matrix after removing rows and columns with maximum values:");
 console.table(cleanedMatrix);
 
 // 5.
 
-function swapExtremeColumns(matrix) {
+function swapColumns(matrix) {
     const rows = matrix.length;
     const cols = matrix[0].length;
 
@@ -155,10 +160,9 @@ function swapExtremeColumns(matrix) {
     return matrix;
 };
 
-const swappedMatrix = swapExtremeColumns(randomTable);
+const swappedMatrix = swapColumns(randomMatrix);
 
 if (swappedMatrix !== null) {
     console.log("Matrix after swapping columns with minimum and maximum:");
     console.table(swappedMatrix);
 };
-
